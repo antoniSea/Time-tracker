@@ -138,6 +138,25 @@
       <path value="$PROJECT_DIR$/laravel/vendor/markbaker/matrix" />
       <path value="$PROJECT_DIR$/laravel/vendor/symfony/polyfill-php83" />
       <path value="$PROJECT_DIR$/laravel/vendor/ezyang/htmlpurifier" />
+      <path value="$PROJECT_DIR$/laravel/vendor/pusher/pusher-php-server" />
+      <path value="$PROJECT_DIR$/laravel/vendor/fig/http-message-util" />
+      <path value="$PROJECT_DIR$/laravel/vendor/facade/ignition-contracts" />
+      <path value="$PROJECT_DIR$/laravel/vendor/react/promise-timer" />
+      <path value="$PROJECT_DIR$/laravel/vendor/react/event-loop" />
+      <path value="$PROJECT_DIR$/laravel/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/laravel/vendor/react/stream" />
+      <path value="$PROJECT_DIR$/laravel/vendor/react/socket" />
+      <path value="$PROJECT_DIR$/laravel/vendor/react/cache" />
+      <path value="$PROJECT_DIR$/laravel/vendor/react/http" />
+      <path value="$PROJECT_DIR$/laravel/vendor/react/dns" />
+      <path value="$PROJECT_DIR$/laravel/vendor/cboden/ratchet" />
+      <path value="$PROJECT_DIR$/laravel/vendor/beyondcode/laravel-websockets" />
+      <path value="$PROJECT_DIR$/laravel/vendor/ringcentral/psr7" />
+      <path value="$PROJECT_DIR$/laravel/vendor/ratchet/rfc6455" />
+      <path value="$PROJECT_DIR$/laravel/vendor/evenement/evenement" />
+      <path value="$PROJECT_DIR$/laravel/vendor/paragonie/sodium_compat" />
+      <path value="$PROJECT_DIR$/laravel/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/laravel/vendor/symfony/psr-http-message-bridge" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
