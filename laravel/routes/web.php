@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CSVReportController;
 use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\TimeEntryController;
 use App\Http\Controllers\UserSettingController;
@@ -46,6 +47,10 @@ Route::middleware([
         Route::post('/reverse-deletion-for-all-entries', [TimeEntryController::class, 'reverseDeletionForAllEntries'])->name('time-entries.reverse-deletion-for-all-entries');
         Route::delete('/hard-delete/{id}', [TimeEntryController::class, 'hardDelete'])->name('time-entries.hard-delete');
     });
+
+    Route::get('/csv-reports', [CSVReportController::class, 'generateReportForm'])->name('csv-reports.generate-report-form');
+    Route::post('/csv-reports/generate', [CSVReportController::class, 'generateReport'])->name('csv-reports.store');
+    Route::get('/csv-reports/preview', [CSVReportController::class, 'previewReport'])->name('csv-reports.preview');
 
     Route::resource('principals', PrincipalController::class)->names('principals');
     Route::post('/principals/mark-as-main/{principal}', [PrincipalController::class, 'markAsMain'])->name('principals.mark-as-main');

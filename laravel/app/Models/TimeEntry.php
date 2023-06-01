@@ -17,6 +17,17 @@ class TimeEntry extends Model
         'pending',
     ];
 
+    public function getTimeWorked(): string
+    {
+        $start = strtotime($this->start_time);
+        $end = strtotime($this->end_time);
+
+        $hours = floor(($end - $start) / 3600);
+        $minutes = floor(($end - $start) / 60 % 60);
+
+        return $hours . ':' . $minutes;
+    }
+
     public function principal(): BelongsTo
     {
         return $this->belongsTo(Principal::class);

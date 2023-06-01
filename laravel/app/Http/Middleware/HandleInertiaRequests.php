@@ -32,7 +32,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'settings' => function () use ($request) {
-                return $request->user()->settings->mapWithKeys(function ($setting) {
+                return $request?->user()?->settings->mapWithKeys(function ($setting) {
                     return [$setting->name => $setting->value];
                 });
             },

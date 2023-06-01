@@ -9,15 +9,14 @@ use App\services\PrincipalService;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Http\Request;
 
 class PrincipalController extends Controller
 {
     public function __construct(
         readonly protected PrincipalRepository $principalRepository,
         readonly protected PrincipalService $principalService
-    )
-    {
-    }
+    ) {}
 
     /**
      * @param CreatePricipalRequest $request
@@ -31,22 +30,24 @@ class PrincipalController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         return Inertia::render('Principal/Index', [
-            'principals' => $this->principalRepository->getPaginatedUserPrincipals(),
+            'principals' => $this->principalRepository->getPaginatedUserPrincipals($request->user()),
         ]);
     }
 
     /**
+     * @param Request $request
      * @param Principal $principal
      * @return RedirectResponse
      */
-    public function markAsMain(Principal $principal): RedirectResponse
+    public function markAsMain(Request $request, Principal $principal): RedirectResponse
     {
-        $this->principalRepository->updateAllPrincipalsToNotMain();
+        $this->principalRepository->updateAllPrincipalsToNotMain($request->user());
         $principal->update(['selected_main' => true]);
 
         return redirect()->route('principals.index');
@@ -71,6 +72,11 @@ class PrincipalController extends Controller
         return Inertia::render('Principal/Create');
     }
 
+    /**
+     * @param Principal $principal
+     * @param CreatePricipalRequest $request
+     * @return RedirectResponse
+     */
     public function update(Principal $principal, CreatePricipalRequest $request): RedirectResponse
     {
         $principal->update($request->validated());

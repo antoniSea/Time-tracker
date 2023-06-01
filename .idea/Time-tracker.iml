@@ -127,6 +127,14 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/spatie/backtrace" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/phpunit/php-timer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/pragmarx/google2fa" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/maatwebsite/excel" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/myclabs/php-enum" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/maennchen/zipstream-php" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/phpoffice/phpspreadsheet" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/markbaker/complex" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/markbaker/matrix" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/polyfill-php83" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/ezyang/htmlpurifier" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

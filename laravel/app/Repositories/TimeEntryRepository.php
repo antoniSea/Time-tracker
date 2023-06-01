@@ -76,6 +76,36 @@ class TimeEntryRepository
      */
     public function getAllTimeEntriesForUser(?Authenticatable $user): mixed
     {
-        return $timeEntries = $user->timeEntries();
+        return $user->timeEntries();
+    }
+
+    /**
+     * @param Authenticatable|null $user
+     * @param int $principalId
+     * @param string $startDate
+     * @param string $endDate
+     * @return mixed
+     */
+    public function getAllTimeEntriesForUserWherePrincipalIdIsWithDates(
+        ?Authenticatable $user,
+        int $principalId,
+        string $startDate,
+        string $endDate
+    ): mixed
+    {
+        return $user->timeEntries()->where('principal_id', $principalId)
+            ->whereBetween('start_time', [$startDate, $endDate])
+            ->get();
+    }
+
+
+    /**
+     * @param Authenticatable|null $user
+     * @param int $principalId
+     * @return mixed
+     */
+    public function getAllTimeEntriesForUserWherePrincipalIdIs(?Authenticatable $user, int $principalId): Collection
+    {
+        return $user->timeEntries()->where('principal_id', $principalId)->get();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Principal;
+use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -10,20 +11,22 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class PrincipalRepository
 {
     /**
+     * @param User $user
      * @return LengthAwarePaginator
      */
-    public static function getPaginatedUserPrincipals(): LengthAwarePaginator
+    public static function getPaginatedUserPrincipals(User $user): LengthAwarePaginator
     {
-        return auth()->user()->principals()->paginate(10);
+        return $user->principals()->paginate(10);
     }
 
 
     /**
+     * @param User $user
      * @return void
      */
-    public static function updateAllPrincipalsToNotMain(): void
+    public static function updateAllPrincipalsToNotMain(User $user): void
     {
-        Principal::query()->where('user_id', auth()->id())->update(['selected_main' => false]);
+        Principal::query()->where('user_id', $user->id)->update(['selected_main' => false]);
     }
 
     /**

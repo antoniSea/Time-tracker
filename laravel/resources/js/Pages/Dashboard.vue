@@ -2,8 +2,10 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import StopWatch from '@/Components/StopWatch.vue';
 import { defineProps, ref } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { router, Link } from '@inertiajs/vue3';
 import CreatePrincipal from '@/Components/CreatePrincipal.vue';
+import LayoutContainer from "../Components/LayoutContainer.vue";
+import LayoutHeader from "../Components/LayoutHeader.vue";
 
 const props = defineProps({
     'principals': Array,
@@ -26,26 +28,36 @@ const reloadPage = async () => {
 <template>
     <AppLayout title="Dashboard">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <LayoutHeader>
                 <span v-if="doesUserHavePrincipal">
                     Nie posiadasz żadnego zleceniodawcy! Aby kożystać z trackera stwórz nowego
                 </span>
                 <span v-else>
                     Liczenie czasu pracy
                 </span>
-            </h2>
+            </LayoutHeader>
         </template>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
-                    <CreatePrincipal v-if="principals.length === 0" />
+        <LayoutContainer>
+            <CreatePrincipal
+                v-if="principals.length === 0"
+            />
 
-                    <div v-else>
-                        <StopWatch @reload="reloadPage" v-if="!reloadInprogress" :time-entries="props.timeEntries" />
-                    </div>
+            <div v-else>
+                <StopWatch
+                    @reload="reloadPage"
+                    v-if="!reloadInprogress"
+                    :time-entries="props.timeEntries"
+                />
+
+                <div class="mt-4 text-2xl">
+                    Pracujesz dla: {{ props.principals.filter(principal => principal.selected_main)[0].name }}
+
+                    <Link class="text-blue-500" :href="route('principals.index')">
+                        Zmień
+                    </Link>
                 </div>
             </div>
-        </div>
+        </LayoutContainer>
     </AppLayout>
 </template>

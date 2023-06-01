@@ -130,6 +130,14 @@
       <path value="$PROJECT_DIR$/laravel/vendor/spatie/backtrace" />
       <path value="$PROJECT_DIR$/laravel/vendor/phpunit/php-timer" />
       <path value="$PROJECT_DIR$/laravel/vendor/pragmarx/google2fa" />
+      <path value="$PROJECT_DIR$/laravel/vendor/maatwebsite/excel" />
+      <path value="$PROJECT_DIR$/laravel/vendor/myclabs/php-enum" />
+      <path value="$PROJECT_DIR$/laravel/vendor/maennchen/zipstream-php" />
+      <path value="$PROJECT_DIR$/laravel/vendor/phpoffice/phpspreadsheet" />
+      <path value="$PROJECT_DIR$/laravel/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/laravel/vendor/markbaker/matrix" />
+      <path value="$PROJECT_DIR$/laravel/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/laravel/vendor/ezyang/htmlpurifier" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />

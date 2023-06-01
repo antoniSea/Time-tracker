@@ -7,8 +7,7 @@ class IndexTimeEntryDTO
     public function __construct(
         readonly protected ?string $startedToDate,
         readonly protected ?string $startedFromDate,
-    ) {
-    }
+    ) {}
 
     /**
      * Return DTO from request
