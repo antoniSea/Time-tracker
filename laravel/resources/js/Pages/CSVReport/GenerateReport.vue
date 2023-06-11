@@ -15,7 +15,7 @@ const props = defineProps({
 const form = useForm({
     fromDate: "",
     toDate: "",
-    principal: props.principals[0].id,
+    principal: props?.principals[0]?.id,
     fileFormat: 1,
 });
 

@@ -36,6 +36,9 @@ class HandleInertiaRequests extends Middleware
                     return [$setting->name => $setting->value];
                 });
             },
+            'roles' => function () use ($request) {
+                return $request?->user()?->roles;
+            },
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),

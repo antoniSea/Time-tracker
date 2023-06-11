@@ -24,7 +24,7 @@ class PrincipalController extends Controller
      */
     public function store(CreatePricipalRequest $request): RedirectResponse
     {
-        Principal::query()->create($request->validated() + ['user_id' => auth()->id()]);
+        $this->principalService->createPrincipal($request->validated());
 
         return redirect()->back()->with('success', 'Principal created successfully');
     }

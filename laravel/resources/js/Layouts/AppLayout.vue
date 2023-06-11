@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import {computed, ref} from 'vue';
+import {Head, Link, router, usePage} from '@inertiajs/vue3';
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import Banner from '@/Components/Banner.vue';
 import Dropdown from '@/Components/Dropdown.vue';
@@ -12,7 +12,10 @@ defineProps({
     title: String,
 });
 
+const { props } = usePage();
 const showingNavigationDropdown = ref(false);
+
+const getUserRoleByName = (name) =>  props.roles.find(role => role.name === name);
 
 const switchToTeam = (team) => {
     router.put(route('current-team.update'), {
@@ -47,7 +50,7 @@ const logout = () => {
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" v-if="getUserRoleByName('employee')">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Timer
                                 </NavLink>
@@ -60,6 +63,12 @@ const logout = () => {
                                     Zleceniodawcy
                                 </NavLink>
 
+                                <NavLink :href="route('csv-reports.generate-report-form')" :active="route().current('csv-reports.generate-report-form')">
+                                    Raporty CSV
+                                </NavLink>
+                            </div>
+
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" v-if="getUserRoleByName('principal')">
                                 <NavLink :href="route('csv-reports.generate-report-form')" :active="route().current('csv-reports.generate-report-form')">
                                     Raporty CSV
                                 </NavLink>

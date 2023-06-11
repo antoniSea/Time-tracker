@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -30,6 +32,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'principal_id',
     ];
 
     /**
@@ -77,10 +80,25 @@ class User extends Authenticatable
         return $this->hasManyThrough(
             TimeEntry::class,
             Principal::class,
-            'user_id', // Foreign key on Principal table...
-            'principal_id', // Foreign key on TimeEntry table...
-            'id', // Local key on User table...
-            'id' // Local key on Principal table...
+            'user_id',
+            'principal_id',
+            'id',
+            'id',
         );
+    }
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return $this->roles()->where('name', $role)->exists();
+    }
+
+    public function principal(): BelongsTo
+    {
+        return $this->belongsTo(Principal::class);
     }
 }

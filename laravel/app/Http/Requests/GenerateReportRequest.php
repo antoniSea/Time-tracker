@@ -23,7 +23,7 @@ class GenerateReportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'principal' => ['required', 'integer', 'exists:principals,id'],
+            'principal' => ['nullable'],
             'fromDate' => ['nullable', 'date'],
             'toDate' => ['nullable', 'date'],
             'fileFormat' => ['required', 'integer', 'in:1,2'],

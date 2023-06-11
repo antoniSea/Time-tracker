@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\ExportReport;
+use App\Contracts\CSVReportServiceInterface;
 use App\Helpers\CsvReportFileName;
 use App\Http\Requests\GenerateReportRequest;
-use App\Models\Principal;
 use App\Repositories\TimeEntryRepository;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
-use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class CSVReportController extends Controller
 {
     public function __construct(
-        protected TimeEntryRepository $timeEntryRepository,
-        protected CsvReportFileName   $csvFileNameHepler,
+        protected TimeEntryRepository       $timeEntryRepository,
+        protected CsvReportFileName         $csvFileNameHepler,
+        protected CSVReportServiceInterface $csvReportService
     ) {}
     /**
      * @return Response
@@ -31,34 +29,23 @@ class CSVReportController extends Controller
 
     /**
      * @param GenerateReportRequest $request
+     * @param CSVReportServiceInterface $csvReportService
      * @return BinaryFileResponse
      */
-    public function generateReport(GenerateReportRequest $request): BinaryFileResponse
+    public function generateReport(GenerateReportRequest $request, CSVReportServiceInterface $csvReportService): BinaryFileResponse
     {
-        $principal = Principal::query()->find(
-            $request->validated('principal')
-        );
-
-        return Excel::download(new ExportReport(
-            $this->timeEntryRepository,
-            $request->validated(),
-        ), $this->csvFileNameHepler->generateCsvReportFileName($principal->name), \Maatwebsite\Excel\Excel::CSV);
+        return $csvReportService->generateReport($request->validated());
     }
 
     /**
      * @param GenerateReportRequest $request
+     * @param CSVReportServiceInterface $csvReportService
      * @return Response
      */
-    public function previewReport(GenerateReportRequest $request): Response
+    public function previewReport(GenerateReportRequest $request, CSVReportServiceInterface $csvReportService): Response
     {
-        $name = Str::random(40) . '.csv';
-        Excel::store(new ExportReport(
-            $this->timeEntryRepository,
-            $request->validated(),
-        ), $name, 'public');
-
         return Inertia::render('CSVReport/PreviewReport', [
-            'fileName' => asset('storage/' . $name),
+            'fileName' => $csvReportService->previewReport($request->validated()),
         ]);
     }
 }

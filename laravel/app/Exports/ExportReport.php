@@ -13,9 +13,7 @@ class ExportReport implements FromCollection
     public function __construct(
         protected TimeEntryRepository $timeEntryRepository,
         protected array               $data,
-    )
-    {
-    }
+    ) {}
 
     public function collection(): Collection
     {
