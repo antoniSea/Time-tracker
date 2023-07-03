@@ -21,12 +21,9 @@
                     </tr>
                 </table>
 
-                <button
-                    @click="handleFileDownload"
-                    class="px-4 py-2 mt-5 text-white bg-green-600 rounded hover:bg-green-700"
-                >
+                <PrimaryButton @click="handleFileDownload">
                     Pobierz plik
-                </button>
+                </PrimaryButton>
             </div>
         </div>
     </div>
@@ -35,6 +32,8 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import Papa from 'papaparse'
+import PrimaryButton from "../PrimaryButton.vue";
+import fileDownloader from "../../helpers/FileDownloader";
 
 const props = defineProps({
     'fileUrl': String,
@@ -57,13 +56,9 @@ onMounted(() => {
 })
 
 const handleFileDownload = () => {
-    const csv = Papa.unparse(csvData.value)
-    const blob = new Blob([csv], { type: 'text/csv' })
-    const url = URL.createObjectURL(blob)
-    const link = document.createElement('a')
-    link.href = url
-    link.download = 'edited.csv'
-    link.click()
-    URL.revokeObjectURL(url)
+    fileDownloader.downloadFile(
+        csvData.value,
+        'Raport-godzinowy.csv'
+    );
 }
 </script>

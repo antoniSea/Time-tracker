@@ -11,14 +11,21 @@ class UserSettingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param string $name
-     * @param string $value
+     * @param Request $request
      * @return RedirectResponse
      */
-    public function update(string $name, string $value): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
-        $userSetting = auth()->user()->settings()->where('name', $name)->first();
-        $userSetting->update(['value' => (boolean)$value]);
+        foreach ($request->toArray() as $request) {
+            $userSetting = auth()->user()->settings()->where('name', $request['name'])->first();
+
+            if (!empty($userSetting)) {
+                $userSetting->update(['value' => $request['value']]);
+                continue;
+            }
+
+            auth()->user()->settings()->create(['name' => $request['name'],'value' => $request['value']]);
+        }
 
         return redirect()->back();
     }

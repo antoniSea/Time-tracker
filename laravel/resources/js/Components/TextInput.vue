@@ -11,7 +11,7 @@ const input = ref(null);
 
 onMounted(() => {
     if (input.value.hasAttribute('autofocus')) {
-        input.value.focus();
+        setTimeout(() => input.value.focus(), 100);
     }
 });
 

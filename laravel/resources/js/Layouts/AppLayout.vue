@@ -66,6 +66,10 @@ const logout = () => {
                                 <NavLink :href="route('csv-reports.generate-report-form')" :active="route().current('csv-reports.generate-report-form')">
                                     Raporty CSV
                                 </NavLink>
+
+                                <NavLink :href="route('billing.index')" :active="route().current('billing.index')">
+                                    Billing
+                                </NavLink>
                             </div>
 
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" v-if="getUserRoleByName('principal')">

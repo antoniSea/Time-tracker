@@ -15,7 +15,7 @@ final class CSVReportEmployeeService implements CSVReportServiceInterface
 {
     public function __construct(
         protected readonly TimeEntryRepository $timeEntryRepository,
-        protected readonly CsvReportFileName   $csvFileNameHepler,
+        protected readonly CsvReportFileName   $csvFileNameHelper,
         protected readonly CSVReportService    $csvReportService,
     ) {}
 

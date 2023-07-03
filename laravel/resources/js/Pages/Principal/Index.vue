@@ -1,5 +1,5 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
+import AppLayout from '../../Layouts/AppLayout.vue';
 import Table from "../../Components/Table.vue";
 import TableThead from "../../Components/TableThead.vue";
 import TableColumn from "../../Components/TableColumn.vue";
@@ -11,15 +11,27 @@ import { useForm, Link } from "@inertiajs/vue3";
 import LayoutContainer from "../../Components/LayoutContainer.vue";
 import LayoutHeader from "../../Components/LayoutHeader.vue";
 import SecondaryButton from "../../Components/SecondaryButton.vue";
+import DangerButton from "../../Components/DangerButton.vue";
+import useDeletionModal from "../../Composables/UseDeletionModal";
+import PrincipalDeleteConfirmationModal from "../../Components/Principals/PrincipalDeleteConfirmationModal.vue";
+import formData from "../../helpers/FormOptionsHelper.js";
+import SearchBar from "../../Components/SearchBar.vue";
 
 const props = defineProps({
     principals: Array,
+    settings: Array,
 });
 
 const form = useForm({});
 
+const [ isModalOpen, deletingId, showModal, principalDeleteForm, deletePrincipal ] = useDeletionModal({
+    settings: props.settings,
+    routeName: 'principals.destroy',
+    successMessage: 'Pomyślnie usunięto zleceniodawcę',
+});
+
 const markPrincipalAsMain = (id) => {
-    form.post(route('principals.mark-as-main', {'principal': id}));
+    form.post(route('principals.mark-as-main', id), formData());
 };
 </script>
 
@@ -32,11 +44,18 @@ const markPrincipalAsMain = (id) => {
         </template>
 
         <LayoutContainer>
-            <Link :href="route('principals.create')">
-                <PrimaryButton class="mb-4">
-                    Stwórz zleceniodawcę
-                </PrimaryButton>
-            </Link>
+            <div class="flex justify-between items-center mb-4">
+                <Link :href="route('principals.create')" class="block">
+                    <PrimaryButton class="mb-4">
+                        Stwórz zleceniodawcę
+                    </PrimaryButton>
+                </Link>
+
+                <SearchBar
+                    route-name-space="principals"
+                    :settings="settings"
+                />
+            </div>
 
             <Table>
                 <TableThead>
@@ -83,7 +102,13 @@ const markPrincipalAsMain = (id) => {
 
                         <TableDataCell>
                             <PrimaryButton @click="markPrincipalAsMain(principal.id)" :disabled="principal.selected_main">
-                                Wybierz jako główny
+                                <span v-if="!principal.selected_main">
+                                    Wybierz jako główny
+                                </span>
+
+                                <span v-else>
+                                    Wybrano jako główny
+                                </span>
                             </PrimaryButton>
 
                             <Link :href="route('principals.edit', {principal: principal.id})">
@@ -91,10 +116,25 @@ const markPrincipalAsMain = (id) => {
                                     Edytuj
                                 </SecondaryButton>
                             </Link>
+
+                            <DangerButton
+                                @click="showModal(principal.id)"
+                                :disabled="principalDeleteForm.processing"
+                                class="ml-4"
+                            >
+                                Usuń
+                            </DangerButton>
                         </TableDataCell>
                     </TableDataContainer>
                 </TableBody>
             </Table>
         </LayoutContainer>
     </AppLayout>
+
+    <PrincipalDeleteConfirmationModal
+        :is-modal-open="isModalOpen"
+        :time-entry-delete-form="principalDeleteForm"
+        :time-entry-id="deletingId"
+        @delete-entry="deletePrincipal"
+    />
 </template>

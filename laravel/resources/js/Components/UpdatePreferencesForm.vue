@@ -5,20 +5,27 @@ import InputError from "./InputError.vue";
 import PrimaryButton from "./PrimaryButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import ActionMessage from "./ActionMessage.vue";
+import TextInput from "./TextInput.vue";
 
 const props = defineProps({
     settings: Object,
 });
 
-const form = useForm({
-    name: 'alertAboutDelete',
-    value: props.settings.alertAboutDelete
-});
+const form = useForm( [
+    {
+        name: 'alertAboutDelete',
+        value: props.settings.alertAboutDelete ?? ''
+    },
+    {
+        name: 'searchKey',
+        value: props.settings.searchKey ?? ''
+    },
+]);
 
 const updatePassword = () => {
-    form.put(route('user-settings', {...form}), {
+    form.put(route('user-settings'), {
         preserveScroll: true,
-    })
+    });
 }
 </script>
 
@@ -36,11 +43,18 @@ const updatePassword = () => {
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="current_password" value="Alert usuwania" />
 
-                <select class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full" v-model="form.value">
+                <select class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full"
+                        v-model="form[0].value">
                     <option value="1">Tak</option>
                     <option value="0">Nie</option>
                 </select>
 
+                <InputError class="mt-2" />
+            </div>
+
+            <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="current_password" value="Przycisk wyszukiwania" />
+                <TextInput type="text" class="w-full" v-model="form[1].value" />
                 <InputError class="mt-2" />
             </div>
         </template>

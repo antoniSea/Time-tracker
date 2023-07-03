@@ -11,7 +11,7 @@ class Principal extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    public $fillable = [
         'name',
         'email',
         'accounting_email',
@@ -22,6 +22,7 @@ class Principal extends Model
         'phone',
         'user_id',
         'selected_main',
+        'website'
     ];
 
     public function timeEntries(): HasMany

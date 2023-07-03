@@ -4,6 +4,7 @@ import InputLabel from "../InputLabel.vue";
 import InputError from "../InputError.vue";
 import { useForm } from "@inertiajs/vue3";
 import PrimaryButton from "../PrimaryButton.vue";
+import { notify } from "../../helpers/NotificationHelper";
 
 const props = defineProps({
     principal: Object,
@@ -23,7 +24,11 @@ const form = useForm({
 
 const submit = () => {
     form.put(route("principals.show", {principal: props.principal.id}), {
-        onFinish: () => form.reset("password"),
+        onFinish: () => {
+            notify().success('Pomyślnie zapisano zleceniodawcę');
+
+            form.reset("password");
+        },
     });
 };
 </script>

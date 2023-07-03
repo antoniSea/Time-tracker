@@ -12,16 +12,6 @@ class PrincipalRepository
 {
     /**
      * @param User $user
-     * @return LengthAwarePaginator
-     */
-    public static function getPaginatedUserPrincipals(User $user): LengthAwarePaginator
-    {
-        return $user->principals()->paginate(10);
-    }
-
-
-    /**
-     * @param User $user
      * @return void
      */
     public static function updateAllPrincipalsToNotMain(User $user): void

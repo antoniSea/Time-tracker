@@ -15,6 +15,12 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @property array<Principal> $principals
+ * @property string $name
+ * @property string $email
+ * @property string $principal_id
+ */
 class User extends Authenticatable
 {
     use HasApiTokens;

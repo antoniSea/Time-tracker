@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePricipalRequest;
+use App\Http\Requests\UpdatePrincipalRequest;
 use App\Models\Principal;
 use App\Repositories\PrincipalRepository;
 use App\services\PrincipalService;
+use App\Traits\Searchable;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -13,9 +15,12 @@ use Illuminate\Http\Request;
 
 class PrincipalController extends Controller
 {
+    use Searchable;
+
     public function __construct(
         readonly protected PrincipalRepository $principalRepository,
-        readonly protected PrincipalService $principalService
+        readonly protected PrincipalService    $principalService,
+        readonly protected Principal           $model,
     ) {}
 
     /**
@@ -36,7 +41,7 @@ class PrincipalController extends Controller
     public function index(Request $request): Response
     {
         return Inertia::render('Principal/Index', [
-            'principals' => $this->principalRepository->getPaginatedUserPrincipals($request->user()),
+            'principals' => $this->principalService->getPaginatedUserPrincipals($request->user()),
         ]);
     }
 
@@ -74,12 +79,28 @@ class PrincipalController extends Controller
 
     /**
      * @param Principal $principal
-     * @param CreatePricipalRequest $request
+     * @param UpdatePrincipalRequest $request
      * @return RedirectResponse
      */
-    public function update(Principal $principal, CreatePricipalRequest $request): RedirectResponse
+    public function update(Principal $principal, UpdatePrincipalRequest $request): RedirectResponse
     {
-        $principal->update($request->validated());
+        $data = $request->validated();
+        $data['password'] = $data['password'] ?? $principal->password;
+
+        $principal->update($data);
+
+        return redirect()->route('principals.index');
+    }
+
+    /**
+     * Destroy the specified resource in storage.
+     *
+     * @param Principal $principal
+     * @return RedirectResponse
+     */
+    public function destroy(Principal $principal): RedirectResponse
+    {
+        $principal->delete();
 
         return redirect()->route('principals.index');
     }

@@ -7,6 +7,7 @@ import InputLabel from "../../Components/InputLabel.vue";
 import PrimaryButton from "../../Components/PrimaryButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import SecondaryButton from "../../Components/SecondaryButton.vue";
+import {notify} from "../../helpers/NotificationHelper";
 
 const props = defineProps({
     principals: Object,
@@ -19,13 +20,19 @@ const form = useForm({
     fileFormat: 1,
 });
 
-const submitForm = () => {
-    const url = route("csv-reports.store") + "?" + new URLSearchParams({
+const formToRequestParams = (form) => {
+    return {
         fromDate: form.fromDate,
         toDate: form.toDate,
         principal: form.principal,
         fileFormat: form.fileFormat,
-    });
+    }
+};
+
+const submitForm = () => {
+    const url = route("csv-reports.store") + "?" + new URLSearchParams(
+        formToRequestParams(form),
+    );
 
     const headers = {
         'Accept': 'application/csv',
@@ -43,12 +50,9 @@ const submitForm = () => {
 };
 
 const previewFile = () => {
-    let url = route("csv-reports.preview") + "?" + new URLSearchParams({
-        fromDate: form.fromDate,
-        toDate: form.toDate,
-        principal: form.principal,
-        fileFormat: form.fileFormat,
-    });
+    let url = route("csv-reports.preview") + "?" + new URLSearchParams(
+        formToRequestParams(form),
+    );
 
     let width = 600;
     let height = 700;
@@ -59,7 +63,17 @@ const previewFile = () => {
     let windowFeatures = `menubar=no,location=no,resizable=yes,scrollbars=yes,status=no,width=${width},height=${height},left=${left},top=${top}`;
 
     window.open(url, "_blank", windowFeatures);
+};
 
+const sendEmail = async () => {
+    const postData = formToRequestParams(form);
+
+    try {
+        await axios.post(route('csv-reports.send-email'), postData);
+        notify().success('Pomyślnie wysłano maila do klienta');
+    } catch {
+        notify().error('Wystąpił błąd');
+    }
 };
 </script>
 
@@ -109,6 +123,10 @@ const previewFile = () => {
                 <SecondaryButton class="ml-4" @click="previewFile">
                     Przeglądnij plik
                 </SecondaryButton>
+
+                <PrimaryButton class="ml-4" @click.prevent="sendEmail">
+                    Wyślij w emailu do klienta
+                </PrimaryButton>
             </form>
 
         </LayoutContainer>

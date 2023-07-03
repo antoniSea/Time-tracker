@@ -2,14 +2,16 @@
 
 namespace App\services;
 
-use App\DTO\TimeEntries\IndexTimeEntryDTO;
+use App\DTO\TimeFiltersDTO;
 use App\Helpers\GetSelectedPrincipalEntry;
-use App\Models\TimeEntry;
+use App\Helpers\SearchHelper;
+use App\Helpers\TimeFiltersHelper;
 use App\Repositories\TimeEntryRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class TimeEntryService
 {
@@ -67,22 +69,20 @@ class TimeEntryService
     }
 
     /**
-     * @param IndexTimeEntryDTO $timeEntryDTO
-     * @return HasManyThrough
+     * @param TimeFiltersDTO $data
+     * @return LengthAwarePaginator
      */
-    public function getTimeEntriesForUserWhereStatusIsPending(IndexTimeEntryDTO $timeEntryDTO): HasManyThrough
+    public function getTimeEntriesForUserWhereStatusIsPending(TimeFiltersDTO $data): LengthAwarePaginator
     {
-        $query = $this->timeEntryRepository->getAllTimeEntriesForUser(auth()->user());
+        $query = $this
+            ->timeEntryRepository
+            ->getAllTimeEntriesForUser(auth()->user());
 
-        if ($timeEntryDTO->getStartedToDate()) {
-            $query->whereDate('start_time', '>=', $timeEntryDTO->getStartedToDate());
-        }
+        $query = TimeFiltersHelper::filterByTime($data, $query);
 
-        if ($timeEntryDTO->getStartedFromDate()) {
-            $query->whereDate('start_time', '<=', $timeEntryDTO->getStartedFromDate());
-        }
-
-        return $query->with('principal');
+        return $query
+            ->with('principal')
+            ->paginate(10);
     }
 
     /**

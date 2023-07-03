@@ -1,8 +1,10 @@
 <?php
 
-namespace App\DTO\TimeEntries;
+namespace App\DTO;
 
-class IndexTimeEntryDTO
+use App\Contracts\DTOInterface;
+
+class TimeFiltersDTO implements DTOInterface
 {
     public function __construct(
         readonly protected ?string $startedToDate,

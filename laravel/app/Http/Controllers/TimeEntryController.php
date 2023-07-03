@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\DTO\TimeEntries\IndexTimeEntryDTO;
+use App\DTO\TimeFiltersDTO;
 use App\Http\Requests\IndexTimeEntryRequest;
 use App\Http\Requests\UpdateTimeEntryRequest;
 use App\Models\TimeEntry;
 use App\services\TimeEntryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -55,11 +54,9 @@ class TimeEntryController extends Controller
      */
     public function index(IndexTimeEntryRequest $request): Response
     {
-        $query = $this->timeEntryService->getTimeEntriesForUserWhereStatusIsPending(
-            IndexTimeEntryDTO::fromRequest($request->validated())
+         $timeEntries = $this->timeEntryService->getTimeEntriesForUserWhereStatusIsPending(
+            TimeFiltersDTO::fromRequest($request->validated())
         );
-
-        $timeEntries = $query->paginate(10);
 
         return Inertia::render('TimeEntries/Index',
             compact('timeEntries', 'request'),

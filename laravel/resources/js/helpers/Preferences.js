@@ -1,3 +1,3 @@
 export const shouldDeleteConfirmationModalBeShown = (settings) => {
-    return settings.alertAboutDelete == 0;
+    return settings.alertAboutDelete === 0;
 };
