@@ -6,6 +6,7 @@
         "build": "vite build && vite build --ssr"
     },
     "devDependencies": {
+        "@capacitor/cli": "^5.4.0",
         "@inertiajs/vue3": "^1.0.0",
         "@tailwindcss/forms": "^0.5.2",
         "@tailwindcss/typography": "^0.5.2",
@@ -20,6 +21,12 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
+        "@capacitor/android": "^5.4.0",
+        "@capacitor/core": "^5.4.0",
+        "@fullcalendar/core": "^6.1.8",
+        "@fullcalendar/daygrid": "^6.1.8",
+        "@fullcalendar/interaction": "^6.1.8",
+        "@fullcalendar/vue3": "^6.1.8",
         "@inertiajs/inertia": "^0.11.1",
         "notyf": "^3.10.0",
         "papaparse": "^5.4.1"

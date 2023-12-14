@@ -57,7 +57,6 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/sebastian/object-enumerator" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/psr/log" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/polyfill-intl-normalizer" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/sebastian/exporter" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/css-selector" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/sebastian/code-unit" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/mailer" />
@@ -71,7 +70,6 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/sebastian/complexity" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/guzzlehttp/uri-template" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/polyfill-php72" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/sebastian/global-state" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/guzzlehttp/promises" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/error-handler" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/sebastian/environment" />
@@ -128,7 +126,6 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/phpunit/php-timer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/pragmarx/google2fa" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/maatwebsite/excel" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/myclabs/php-enum" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/maennchen/zipstream-php" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/phpoffice/phpspreadsheet" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/markbaker/complex" />
@@ -154,6 +151,20 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/paragonie/sodium_compat" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/paragonie/random_compat" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/psr-http-message-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/sabberworm/php-css-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/barryvdh/laravel-dompdf" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/masterminds/html5" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/dompdf/dompdf" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/phenx/php-font-lib" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/phenx/php-svg-lib" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/carbonphp/carbon-doctrine-types" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/psr/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/laravel/prompts" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/sebastian/exporter" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/sebastian/global-state" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/livewire/livewire" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/doctrine/sql-formatter" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/laravel/pulse" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

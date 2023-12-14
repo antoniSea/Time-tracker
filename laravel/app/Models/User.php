@@ -21,7 +21,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $email
  * @property string $principal_id
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
@@ -106,5 +106,10 @@ class User extends Authenticatable
     public function principal(): BelongsTo
     {
         return $this->belongsTo(Principal::class);
+    }
+
+    public function calendarEntries(): HasMany
+    {
+        return $this->hasMany(CalendarEntry::class);
     }
 }

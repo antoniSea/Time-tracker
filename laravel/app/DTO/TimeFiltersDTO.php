@@ -3,6 +3,7 @@
 namespace App\DTO;
 
 use App\Contracts\DTOInterface;
+use Carbon\Carbon;
 
 class TimeFiltersDTO implements DTOInterface
 {
@@ -30,7 +31,7 @@ class TimeFiltersDTO implements DTOInterface
      */
     public function getStartedToDate(): ?string
     {
-        return $this->startedToDate;
+        return Carbon::make($this->startedToDate);
     }
 
     /**
@@ -38,6 +39,6 @@ class TimeFiltersDTO implements DTOInterface
      */
     public function getStartedFromDate(): ?string
     {
-        return $this->startedFromDate;
+        return Carbon::make($this->startedFromDate);
     }
 }

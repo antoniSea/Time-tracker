@@ -22,7 +22,7 @@ trait Searchable
      */
     public function getColumns(): JsonResponse
     {
-        $columns = $this->model->fillable;
+        $columns = $this->model->searchable;
 
         return response()->json([
             'columns' => $columns,

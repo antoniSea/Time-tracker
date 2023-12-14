@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CalendarController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingPageController;
 use Illuminate\Support\Facades\Route;
@@ -37,4 +38,7 @@ Route::middleware([
     });
 
     Route::group([], __DIR__ . '/CSVReportRoutes.php');
+
+    Route::get('calendarView', [CalendarController::class, 'calendarView'])->name('calendarView');
+    Route::resource('calendar', CalendarController::class);
 });

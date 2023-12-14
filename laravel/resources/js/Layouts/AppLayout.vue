@@ -70,6 +70,10 @@ const logout = () => {
                                 <NavLink :href="route('billing.index')" :active="route().current('billing.index')">
                                     Billing
                                 </NavLink>
+
+                                <NavLink :href="route('calendarView')">
+                                    Kalendarz
+                                </NavLink>
                             </div>
 
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" v-if="getUserRoleByName('principal')">

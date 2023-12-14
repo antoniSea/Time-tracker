@@ -14,7 +14,19 @@ class Bill extends Model
 {
     use HasFactory;
 
-    public $fillable = [
+    protected $fillable = [
+        'name',
+        'hours',
+        'rate',
+        'amount',
+        'date',
+        'description',
+        'user_id',
+        'principal_id',
+        'url_token',
+    ];
+
+    public array $searchable = [
         'name',
         'hours',
         'rate',

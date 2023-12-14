@@ -11,7 +11,22 @@ class Principal extends Model
 {
     use HasFactory;
 
-    public $fillable = [
+    protected $fillable = [
+        'name',
+        'email',
+        'accounting_email',
+        'address',
+        'description',
+        'nip',
+        'password',
+        'phone',
+        'user_id',
+        'selected_main',
+        'website'
+    ];
+
+
+    public array $searchable = [
         'name',
         'email',
         'accounting_email',

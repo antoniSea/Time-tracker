@@ -16,6 +16,7 @@ import useDeletionModal from "../../Composables/UseDeletionModal";
 import PrincipalDeleteConfirmationModal from "../../Components/Principals/PrincipalDeleteConfirmationModal.vue";
 import formData from "../../helpers/FormOptionsHelper.js";
 import SearchBar from "../../Components/SearchBar.vue";
+import Calendar from "../../Components/Calendar.vue";
 
 const props = defineProps({
     principals: Array,
@@ -130,6 +131,8 @@ const markPrincipalAsMain = (id) => {
             </Table>
         </LayoutContainer>
     </AppLayout>
+
+    <Calendar />
 
     <PrincipalDeleteConfirmationModal
         :is-modal-open="isModalOpen"
